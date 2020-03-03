@@ -1,11 +1,6 @@
 package com.grishinvs.scanner;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * Конфигурационный класс. Содержит параметры программы.
@@ -15,37 +10,42 @@ public class Configuration {
     /**
      * Каталоги, подлежащие сканированию
      */
-    private static List<String> directoryList;
+    private List<String> directoryList;
 
     /**
      * Каталоги, не подлежащие сканированию
      */
-    private static List<String> exclusionList;
+    private List<String> exclusionList;
 
-    static {
-        final String PROPERTIES_FILE_PATH = "config.properties";
-        Properties properties = new Properties();
-        try (InputStream inputStream = Configuration.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE_PATH)) {
-            properties.load(inputStream);
-            directoryList = Arrays.stream(properties.getProperty("directories").split(","))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
-            exclusionList = Arrays.stream(properties.getProperty("excludesDirectories").split(","))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static class Builder {
+
+        private List<String> directoryList;
+        private List<String> exclusionList;
+
+        public Builder setDirectoryList(List<String> directoryList) {
+            this.directoryList = directoryList;
+            return this;
         }
+
+        public Builder setExclusionList(List<String> exclusionList) {
+            this.exclusionList = exclusionList;
+            return this;
+        }
+
+        public Configuration build() {
+            Configuration configuration = new Configuration();
+            configuration.directoryList = this.directoryList;
+            configuration.exclusionList = this.exclusionList;
+            return configuration;
+        }
+
     }
 
-    private Configuration() {
-    }
-
-    public static List<String> getDirectoryList() {
+    public List<String> getDirectoryList() {
         return directoryList;
     }
 
-    public static List<String> getExclusionList() {
+    public List<String> getExclusionList() {
         return exclusionList;
     }
 
