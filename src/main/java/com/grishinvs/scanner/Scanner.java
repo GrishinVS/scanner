@@ -1,7 +1,11 @@
 package com.grishinvs.scanner;
 
+import com.grishinvs.scanner.configuration.Configuration;
+
+import java.util.List;
+
 public interface Scanner {
 
-    void startScan(Configuration configuration);
+    List<ScanFile> scan(Configuration configuration);
 
 }
