@@ -19,7 +19,7 @@ public class JacksonDeserializer<T> implements JsonDeserializer<T> {
     public List<T> deserializeList(File file, Class<T> tClass) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(file, objectMapper.getTypeFactory()
-                    .constructCollectionLikeType(List.class, tClass));
+                .constructCollectionLikeType(List.class, tClass));
     }
 
 }

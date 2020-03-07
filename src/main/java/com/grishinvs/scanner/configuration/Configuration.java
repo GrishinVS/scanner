@@ -52,6 +52,7 @@ public class Configuration {
         }
 
     }
+
     public List<Path> getDirectoryList() {
         return directoryList;
     }

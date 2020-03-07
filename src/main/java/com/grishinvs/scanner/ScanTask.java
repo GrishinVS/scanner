@@ -37,7 +37,7 @@ public class ScanTask implements Callable<List<ScanFile>> {
     }
 
     private void startScanDirectory(Path path, List<ScanFile> fileList) throws IOException {
-        try(DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
             for (Path element : directoryStream) {
                 File file = element.toFile();
                 if (file.isDirectory()) {
@@ -47,11 +47,9 @@ public class ScanTask implements Callable<List<ScanFile>> {
                         }
                     }
                 } else {
-                    // if (configuration.getFileExtension().stream().anyMatch(item -> file.getAbsolutePath().endsWith(item))) {
                     ScanFile scanFile = new ScanFile(file.getAbsolutePath(), file.lastModified(),
                             file.getParentFile().getName());
                     fileList.add(scanFile);
-                    //}
                 }
             }
         }
