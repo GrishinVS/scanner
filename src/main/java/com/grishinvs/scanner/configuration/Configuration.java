@@ -1,5 +1,6 @@
 package com.grishinvs.scanner.configuration;
 
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -10,35 +11,35 @@ public class Configuration {
     /**
      * Каталоги, подлежащие сканированию
      */
-    private List<String> directoryList;
+    private List<Path> directoryList;
 
     /**
      * Каталоги, не подлежащие сканированию
      */
-    private List<String> exclusionList;
+    private List<Path> exclusionList;
 
     /**
      * Расширения файлов, подлежаще сканированию
      */
-    private List<String> fileExtension;
+    private List<Path> fileExtension;
 
     public static class Builder {
 
-        private List<String> directoryList;
-        private List<String> fileExtension;
-        private List<String> exclusionList;
+        private List<Path> directoryList;
+        private List<Path> fileExtension;
+        private List<Path> exclusionList;
 
-        public Builder setDirectoryList(List<String> directoryList) {
+        public Builder setDirectoryList(List<Path> directoryList) {
             this.directoryList = directoryList;
             return this;
         }
 
-        public Builder setExclusionList(List<String> exclusionList) {
+        public Builder setExclusionList(List<Path> exclusionList) {
             this.exclusionList = exclusionList;
             return this;
         }
 
-        public Builder setFileExtension(List<String> fileExtension) {
+        public Builder setFileExtension(List<Path> fileExtension) {
             this.fileExtension = fileExtension;
             return this;
         }
@@ -51,15 +52,15 @@ public class Configuration {
         }
 
     }
-    public List<String> getDirectoryList() {
+    public List<Path> getDirectoryList() {
         return directoryList;
     }
 
-    public List<String> getExclusionList() {
+    public List<Path> getExclusionList() {
         return exclusionList;
     }
 
-    public List<String> getFileExtension() {
+    public List<Path> getFileExtension() {
         return fileExtension;
     }
 

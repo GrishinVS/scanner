@@ -2,6 +2,7 @@ package com.grishinvs.scanner.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -40,12 +41,15 @@ public class PropertiesConfigurationLoader implements ConfigurationLoader {
                 return new Configuration.Builder()
                         .setDirectoryList(Arrays.stream(properties.getProperty("directories").split(delimiter))
                                 .map(String::trim)
+                                .map(Paths::get)
                                 .collect(Collectors.toList()))
                         .setExclusionList(Arrays.stream(properties.getProperty("excludesDirectories").split(delimiter))
                                 .map(String::trim)
+                                .map(Paths::get)
                                 .collect(Collectors.toList()))
                         .setFileExtension(Arrays.stream(properties.getProperty("fileExtension").split(delimiter))
                                 .map(String::trim)
+                                .map(Paths::get)
                                 .collect(Collectors.toList()))
                         .build();
             }

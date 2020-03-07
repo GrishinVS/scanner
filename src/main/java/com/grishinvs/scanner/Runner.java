@@ -16,12 +16,14 @@ public class Runner {
         // Получение конфигурации
         ConfigurationLoader configurationLoader = new PropertiesConfigurationLoader();
         Configuration configuration = configurationLoader.loadConfiguration();
+
         // Получение списка просканированных файлов
         Scanner scanner = new ScannerImpl();
         List<ScanFile> scanFileList = scanner.scan(configuration);
+        scanFileList.forEach(System.out::println);
         // Запись результата в файл
-        Saver<ScanFile> saver = new ScanFileSaver();
-        saver.save(scanFileList, "чудо путь");
+//        Saver<ScanFile> saver = new ScanFileSaver();
+//        saver.save(scanFileList, "чудо путь");
     }
 
 }
