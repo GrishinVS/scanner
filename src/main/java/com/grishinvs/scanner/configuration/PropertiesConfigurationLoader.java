@@ -54,6 +54,7 @@ public class PropertiesConfigurationLoader implements ConfigurationLoader {
                                 .map(String::trim)
                                 .filter(Predicate.not(String::isBlank))
                                 .collect(Collectors.toList()))
+                        .setThreadNumber(Integer.parseInt(properties.getProperty("threadNumber")))
                         .build();
             }
         } catch (IOException e) {

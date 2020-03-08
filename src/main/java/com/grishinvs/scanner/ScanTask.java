@@ -15,9 +15,11 @@ import java.util.concurrent.Callable;
 public class ScanTask implements Callable<List<ScanFile>> {
 
     private final Configuration configuration;
+    private final Path startingPath;
 
-    public ScanTask(Configuration configuration) {
+    public ScanTask(Configuration configuration, Path startingPath) {
         this.configuration = configuration;
+        this.startingPath = startingPath;
     }
 
     public List<ScanFile> call() {
@@ -27,7 +29,7 @@ public class ScanTask implements Callable<List<ScanFile>> {
     private List<ScanFile> scanDirectory() {
         List<ScanFile> result = new ArrayList<>();
         try {
-            startScanDirectory(configuration.getDirectoryList().get(0), result);
+            startScanDirectory(startingPath, result);
         } catch (IOException e) {
             e.printStackTrace();
         }

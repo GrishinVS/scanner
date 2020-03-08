@@ -23,11 +23,18 @@ public class Configuration {
      */
     private List<String> excludesExtensions;
 
+    /**
+     * Количество потоков, используемых при сканировании каталогов
+     */
+    private int threadNumber;
+
     public static class Builder {
 
         private List<Path> directoryList;
         private List<String> excludesExtensions;
         private List<Path> exclusionList;
+
+        private int threadNumber;
 
         public Builder setDirectoryList(List<Path> directoryList) {
             this.directoryList = directoryList;
@@ -44,16 +51,22 @@ public class Configuration {
             return this;
         }
 
+        public Builder setThreadNumber(int threadNumber) {
+            this.threadNumber = threadNumber;
+            return this;
+        }
+
         public Configuration build() {
             Configuration configuration = new Configuration();
             configuration.directoryList = this.directoryList;
             configuration.exclusionList = this.exclusionList;
             configuration.excludesExtensions = this.excludesExtensions;
+            configuration.threadNumber = this.threadNumber;
             return configuration;
         }
 
-    }
 
+    }
     public List<Path> getDirectoryList() {
         return directoryList;
     }
@@ -64,6 +77,10 @@ public class Configuration {
 
     public List<String> getExcludesExtensions() {
         return excludesExtensions;
+    }
+
+    public int getThreadNumber() {
+        return threadNumber;
     }
 
 }
