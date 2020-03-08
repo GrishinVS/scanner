@@ -15,11 +15,9 @@ import java.util.concurrent.Callable;
 public class ScanTask implements Callable<List<ScanFile>> {
 
     private final Configuration configuration;
-    private boolean isRunning;
 
     public ScanTask(Configuration configuration) {
         this.configuration = configuration;
-        this.isRunning = true;
     }
 
     public List<ScanFile> call() {
