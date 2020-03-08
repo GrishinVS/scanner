@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 // Загружает конфигурацию из конфигурационного файла
@@ -41,15 +42,17 @@ public class PropertiesConfigurationLoader implements ConfigurationLoader {
                 return new Configuration.Builder()
                         .setDirectoryList(Arrays.stream(properties.getProperty("directories").split(delimiter))
                                 .map(String::trim)
+                                .filter(Predicate.not(String::isBlank))
                                 .map(Paths::get)
                                 .collect(Collectors.toList()))
                         .setExclusionList(Arrays.stream(properties.getProperty("excludesDirectories").split(delimiter))
                                 .map(String::trim)
+                                .filter(Predicate.not(String::isBlank))
                                 .map(Paths::get)
                                 .collect(Collectors.toList()))
-                        .setFileExtension(Arrays.stream(properties.getProperty("fileExtension").split(delimiter))
+                        .setExcludesExtensions(Arrays.stream(properties.getProperty("excludesExtensions").split(delimiter))
                                 .map(String::trim)
-                                .map(Paths::get)
+                                .filter(Predicate.not(String::isBlank))
                                 .collect(Collectors.toList()))
                         .build();
             }

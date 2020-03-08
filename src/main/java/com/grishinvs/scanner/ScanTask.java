@@ -47,9 +47,12 @@ public class ScanTask implements Callable<List<ScanFile>> {
                         }
                     }
                 } else {
-                    ScanFile scanFile = new ScanFile(file.getAbsolutePath(), file.lastModified(),
-                            file.getParentFile().getName());
-                    fileList.add(scanFile);
+                    if (configuration.getExcludesExtensions().stream()
+                            .noneMatch(file.getName()::endsWith)) {
+                        ScanFile scanFile = new ScanFile(file.getAbsolutePath(), file.lastModified(),
+                                file.getParentFile().getName());
+                        fileList.add(scanFile);
+                    }
                 }
             }
         }

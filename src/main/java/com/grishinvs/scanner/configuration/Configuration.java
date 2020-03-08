@@ -21,12 +21,12 @@ public class Configuration {
     /**
      * Расширения файлов, подлежаще сканированию
      */
-    private List<Path> fileExtension;
+    private List<String> excludesExtensions;
 
     public static class Builder {
 
         private List<Path> directoryList;
-        private List<Path> fileExtension;
+        private List<String> excludesExtensions;
         private List<Path> exclusionList;
 
         public Builder setDirectoryList(List<Path> directoryList) {
@@ -39,8 +39,8 @@ public class Configuration {
             return this;
         }
 
-        public Builder setFileExtension(List<Path> fileExtension) {
-            this.fileExtension = fileExtension;
+        public Builder setExcludesExtensions(List<String> excludesExtensions) {
+            this.excludesExtensions = excludesExtensions;
             return this;
         }
 
@@ -48,6 +48,7 @@ public class Configuration {
             Configuration configuration = new Configuration();
             configuration.directoryList = this.directoryList;
             configuration.exclusionList = this.exclusionList;
+            configuration.excludesExtensions = this.excludesExtensions;
             return configuration;
         }
 
@@ -61,8 +62,8 @@ public class Configuration {
         return exclusionList;
     }
 
-    public List<Path> getFileExtension() {
-        return fileExtension;
+    public List<String> getExcludesExtensions() {
+        return excludesExtensions;
     }
 
 }
