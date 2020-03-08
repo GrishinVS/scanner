@@ -36,6 +36,7 @@ public class PropertiesConfigurationLoader implements ConfigurationLoader {
      */
     public Configuration loadConfiguration() {
         Properties properties = new Properties();
+        Configuration configuration = new Configuration();
         try (InputStream inputStream = Configuration.class.getClassLoader().getResourceAsStream(propertiesFilePath)) {
             if (inputStream != null) {
                 properties.load(inputStream);

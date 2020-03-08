@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ScannerImpl implements Scanner {
+public class DirectoryScannerImpl implements DirectoryScanner {
 
     private int counter;
 
@@ -20,7 +20,7 @@ public class ScannerImpl implements Scanner {
     public List<ScanFile> scan(Configuration configuration) {
         ExecutorService executor = Executors.newFixedThreadPool(configuration.getThreadNumber());
         List<ScanTask> scanTaskList = configuration.getDirectoryList().stream()
-                .filter(Predicate.not(configuration.getExclusionList()::contains))
+                .filter(Predicate.not(configuration.getExclusionDirectoryList()::contains))
                 .map(item -> new ScanTask(configuration, item))
                 .collect(Collectors.toList());
         try {

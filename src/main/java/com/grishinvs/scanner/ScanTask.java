@@ -41,7 +41,7 @@ public class ScanTask implements Callable<List<ScanFile>> {
             for (Path element : directoryStream) {
                 File file = element.toFile();
                 if (file.isDirectory()) {
-                    if (!configuration.getExclusionList().contains(file.toPath())) {
+                    if (!configuration.getExclusionDirectoryList().contains(file.toPath())) {
                         if (Objects.requireNonNull(file.list()).length != 0) {
                             startScanDirectory(element, fileList);
                         }

@@ -16,7 +16,7 @@ public class Configuration {
     /**
      * Каталоги, не подлежащие сканированию
      */
-    private List<Path> exclusionList;
+    private List<Path> exclusionDirectoryList;
 
     /**
      * Расширения файлов, подлежаще сканированию
@@ -59,20 +59,20 @@ public class Configuration {
         public Configuration build() {
             Configuration configuration = new Configuration();
             configuration.directoryList = this.directoryList;
-            configuration.exclusionList = this.exclusionList;
+            configuration.exclusionDirectoryList = this.exclusionList;
             configuration.excludesExtensions = this.excludesExtensions;
             configuration.threadNumber = this.threadNumber;
             return configuration;
         }
 
-
     }
+
     public List<Path> getDirectoryList() {
         return directoryList;
     }
 
-    public List<Path> getExclusionList() {
-        return exclusionList;
+    public List<Path> getExclusionDirectoryList() {
+        return exclusionDirectoryList;
     }
 
     public List<String> getExcludesExtensions() {
@@ -81,6 +81,22 @@ public class Configuration {
 
     public int getThreadNumber() {
         return threadNumber;
+    }
+
+    public void setDirectoryList(List<Path> directoryList) {
+        this.directoryList = directoryList;
+    }
+
+    public void setExclusionDirectoryList(List<Path> exclusionDirectoryList) {
+        this.exclusionDirectoryList = exclusionDirectoryList;
+    }
+
+    public void setExcludesExtensions(List<String> excludesExtensions) {
+        this.excludesExtensions = excludesExtensions;
+    }
+
+    public void setThreadNumber(int threadNumber) {
+        this.threadNumber = threadNumber;
     }
 
 }
