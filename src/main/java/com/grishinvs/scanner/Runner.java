@@ -24,7 +24,7 @@ public class Runner {
         // Получение списка просканированных файлов
         DirectoryScanner scanner = new DirectoryScannerImpl();
         List<File> scanFileList = scanner.scan(configuration);
-        // Запись результата в файл
+        // Сохранение результата
         ReportHandler reportHandler = new ReportHandlerImpl();
         String report = reportHandler.createReport(scanFileList);
         reportHandler.saveReport(report, Paths.get("C:/Users/Vdm/Desktop/sbt_task/report.txt"));
