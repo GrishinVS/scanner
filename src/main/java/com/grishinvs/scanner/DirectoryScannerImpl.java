@@ -2,6 +2,7 @@ package com.grishinvs.scanner;
 
 import com.grishinvs.scanner.configuration.Configuration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -17,14 +18,14 @@ public class DirectoryScannerImpl implements DirectoryScanner {
     private int counter;
 
     @Override
-    public List<ScanFile> scan(Configuration configuration) {
+    public List<File> scan(Configuration configuration) {
         ExecutorService executor = Executors.newFixedThreadPool(configuration.getThreadNumber());
         List<ScanTask> scanTaskList = configuration.getDirectoryList().stream()
                 .filter(Predicate.not(configuration.getExclusionDirectoryList()::contains))
                 .map(item -> new ScanTask(configuration, item))
                 .collect(Collectors.toList());
         try {
-            List<Future<List<ScanFile>>> futureList = executor.invokeAll(scanTaskList);
+            List<Future<List<File>>> futureList = executor.invokeAll(scanTaskList);
             while (futureList.stream().anyMatch(Predicate.not(Future::isDone))) {
                 Thread.sleep(TimeUnit.SECONDS.toMillis(6));
                 if (!isMinute()) {
@@ -43,13 +44,13 @@ public class DirectoryScannerImpl implements DirectoryScanner {
         return new ArrayList<>();
     }
 
-    private List<ScanFile> collectResult(List<Future<List<ScanFile>>> futureList)
+    private List<File> collectResult(List<Future<List<File>>> futureList)
             throws ExecutionException, InterruptedException {
-        List<ScanFile> result = new ArrayList<>();
-        for (Future<List<ScanFile>> future : futureList) {
+        List<File> result = new ArrayList<>();
+        for (Future<List<File>> future : futureList) {
             result.addAll(future.get());
         }
-        return  result;
+        return result;
     }
 
     private boolean isMinute() {

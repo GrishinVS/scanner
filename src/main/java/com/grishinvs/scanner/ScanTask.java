@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-public class ScanTask implements Callable<List<ScanFile>> {
+public class ScanTask implements Callable<List<File>> {
 
     private final Configuration configuration;
     private final Path startingPath;
@@ -22,12 +22,12 @@ public class ScanTask implements Callable<List<ScanFile>> {
         this.startingPath = startingPath;
     }
 
-    public List<ScanFile> call() {
+    public List<File> call() {
         return scanDirectory();
     }
 
-    private List<ScanFile> scanDirectory() {
-        List<ScanFile> result = new ArrayList<>();
+    private List<File> scanDirectory() {
+        List<File> result = new ArrayList<>();
         try {
             startScanDirectory(startingPath, result);
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class ScanTask implements Callable<List<ScanFile>> {
         return result;
     }
 
-    private void startScanDirectory(Path path, List<ScanFile> fileList) throws IOException {
+    private void startScanDirectory(Path path, List<File> fileList) throws IOException {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
             for (Path element : directoryStream) {
                 File file = element.toFile();
@@ -49,9 +49,7 @@ public class ScanTask implements Callable<List<ScanFile>> {
                 } else {
                     if (configuration.getExcludesExtensions().stream()
                             .noneMatch(file.getName()::endsWith)) {
-                        ScanFile scanFile = new ScanFile(file.getAbsolutePath(), file.lastModified(),
-                                file.getParentFile().getName());
-                        fileList.add(scanFile);
+                        fileList.add(file);
                     }
                 }
             }

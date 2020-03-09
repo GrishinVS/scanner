@@ -2,10 +2,11 @@ package com.grishinvs.scanner;
 
 import com.grishinvs.scanner.configuration.Configuration;
 
+import java.io.File;
 import java.util.List;
 
 public interface DirectoryScanner {
 
-    List<ScanFile> scan(Configuration configuration);
+    List<File> scan(Configuration configuration);
 
 }
