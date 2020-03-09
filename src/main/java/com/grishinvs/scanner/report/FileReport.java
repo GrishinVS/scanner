@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 public class FileReport {
 
     private static final String DATE_PATTERN = "yyyy.MM.dd";
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(DATE_PATTERN);
     private String path;
     private long lastModified;
     private long size;
@@ -23,7 +23,7 @@ public class FileReport {
     public String toString() {
         return "[" + System.lineSeparator() +
                 "file = " + path + System.lineSeparator() +
-                "date = " + dateFormat.format(lastModified) + System.lineSeparator() +
+                "date = " + DATE_FORMAT.format(lastModified) + System.lineSeparator() +
                 "size = " + size +
                 ']';
     }
