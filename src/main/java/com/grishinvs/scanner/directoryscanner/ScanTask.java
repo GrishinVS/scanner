@@ -1,4 +1,4 @@
-package com.grishinvs.scanner;
+package com.grishinvs.scanner.directoryscanner;
 
 import com.grishinvs.scanner.configuration.Configuration;
 

@@ -4,6 +4,8 @@ import com.grishinvs.scanner.configuration.Configuration;
 import com.grishinvs.scanner.configuration.ConfigurationLoader;
 import com.grishinvs.scanner.configuration.ConfigurationUtils;
 import com.grishinvs.scanner.configuration.PropertiesConfigurationLoader;
+import com.grishinvs.scanner.directoryscanner.DirectoryScanner;
+import com.grishinvs.scanner.directoryscanner.DirectoryScannerImpl;
 import com.grishinvs.scanner.report.ReportHandler;
 import com.grishinvs.scanner.report.ReportHandlerImpl;
 
@@ -24,7 +26,8 @@ public class Runner {
         List<File> scanFileList = scanner.scan(configuration);
         // Запись результата в файл
         ReportHandler reportHandler = new ReportHandlerImpl();
-        reportHandler.saveReport(reportHandler.createReport(scanFileList), Paths.get("C:/Users/Vdm/Desktop/sbt_task/report.txt"));
+        String report = reportHandler.createReport(scanFileList);
+        reportHandler.saveReport(report, Paths.get("C:/Users/Vdm/Desktop/sbt_task/report.txt"));
     }
 
 }
