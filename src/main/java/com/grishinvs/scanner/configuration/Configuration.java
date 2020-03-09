@@ -1,6 +1,7 @@
 package com.grishinvs.scanner.configuration;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +29,18 @@ public class Configuration {
      */
     private int threadNumber;
 
+    public Configuration() {
+        directoryList = new ArrayList<>();
+        excludesExtensions = new ArrayList<>();
+        exclusionDirectoryList = new ArrayList<>();
+        threadNumber = 1;
+    }
+
     public static class Builder {
 
         private List<Path> directoryList;
         private List<String> excludesExtensions;
         private List<Path> exclusionList;
-
         private int threadNumber;
 
         public Builder setDirectoryList(List<Path> directoryList) {

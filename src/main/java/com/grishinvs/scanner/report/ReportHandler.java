@@ -10,6 +10,7 @@ import java.util.List;
 public interface ReportHandler {
 
     String createReport(List<File> list);
+
     void saveReport(String report, Path path);
 
 }

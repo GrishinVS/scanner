@@ -20,7 +20,7 @@ public class Runner {
         // Получение конфигурации
         ConfigurationLoader configurationLoader = new PropertiesConfigurationLoader();
         Configuration configuration = configurationLoader.loadConfiguration();
-        ConfigurationUtils.initializeDirectoryPaths(configuration, Arrays.asList(args),"-");
+        ConfigurationUtils.initializeDirectoryPaths(configuration, Arrays.asList(args), "-");
         // Получение списка просканированных файлов
         DirectoryScanner scanner = new DirectoryScannerImpl();
         List<File> scanFileList = scanner.scan(configuration);
