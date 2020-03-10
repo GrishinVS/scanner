@@ -26,21 +26,13 @@ public class DirectoryScannerImpl implements DirectoryScanner {
     @Override
     public List<File> scan(Configuration configuration) {
         ExecutorService executor = Executors.newFixedThreadPool(configuration.getThreadNumber());
-        List<ScanTask> scanTaskList = configuration.getDirectoryList().stream()
-                .filter(Predicate.not(configuration.getExclusionDirectoryList()::contains))
-                .map(item -> new ScanTask(configuration, item))
-                .collect(Collectors.toList());
+        List<ScanTask> scanTaskList = createScanTasks(configuration);
         try {
+            counter = 0;
             List<Future<List<File>>> futureList = executor.invokeAll(scanTaskList);
             while (futureList.stream().anyMatch(Predicate.not(Future::isDone))) {
                 Thread.sleep(TimeUnit.SECONDS.toMillis(6));
-                if (!isMinute()) {
-                    System.out.println(".");
-                } else {
-                    System.out.println("|");
-                    counter = 0;
-                }
-                counter++;
+                showScanProcess();
             }
             executor.shutdown();
             return collectResult(futureList);
@@ -48,6 +40,33 @@ public class DirectoryScannerImpl implements DirectoryScanner {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Сопровождает процесс сканирования выводом в консоль каждые 6 секунд символа "."
+     * и символа "|" каждую минуту.
+     */
+    private void showScanProcess() {
+        if (!isMinute()) {
+            System.out.println(".");
+        } else {
+            System.out.println("|");
+            counter = 0;
+        }
+        counter++;
+    }
+
+    /**
+     * Создает задачи сканирования.
+     *
+     * @param configuration конфигурация
+     * @return список задача
+     */
+    private List<ScanTask> createScanTasks(Configuration configuration) {
+        return configuration.getDirectoryList().stream()
+                .filter(Predicate.not(configuration.getExclusionDirectoryList()::contains))
+                .map(item -> new ScanTask(configuration, item))
+                .collect(Collectors.toList());
     }
 
     /**
