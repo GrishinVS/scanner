@@ -7,12 +7,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Реализация обработчика отчетов
+ */
 public class ReportHandlerImpl implements ReportHandler {
 
     @Override
-    public String createReport(List<File> scanFileList) {
+    public String createReport(List<File> fileList) {
         StringBuilder stringBuilder = new StringBuilder();
-        scanFileList.stream()
+        fileList.stream()
                 .map(item -> new FileReport(item.getAbsolutePath(), item.lastModified(), item.length()))
                 .forEach(stringBuilder::append);
         return stringBuilder.toString();

@@ -12,30 +12,52 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
+/**
+ * Задача по сканированию каталога для потока.
+ */
 public class ScanTask implements Callable<List<File>> {
 
+    /**
+     * Конфигурация
+     */
     private final Configuration configuration;
-    private final Path startingPath;
 
-    public ScanTask(Configuration configuration, Path startingPath) {
+    /**
+     * Корневой путь, с которого начнется сканирование
+     */
+    private final Path rootPath;
+
+    public ScanTask(Configuration configuration, Path rootPath) {
         this.configuration = configuration;
-        this.startingPath = startingPath;
+        this.rootPath = rootPath;
     }
 
+    @Override
     public List<File> call() {
         return scanDirectory();
     }
 
+    /**
+     * Инициирует выполнение рекурсивного метода сканирования каталога.
+     *
+     * @return список просканированных файлов.
+     */
     private List<File> scanDirectory() {
         List<File> result = new ArrayList<>();
         try {
-            startScanDirectory(startingPath, result);
+            startScanDirectory(rootPath, result);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
     }
 
+    /**
+     * Обходит указанный каталог, при этом заполняя список, найденными файлами.
+     *
+     * @param path     путь каталога
+     * @param fileList список файлов
+     */
     private void startScanDirectory(Path path, List<File> fileList) throws IOException {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
             for (Path element : directoryStream) {

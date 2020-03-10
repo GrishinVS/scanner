@@ -20,7 +20,7 @@ public class Configuration {
     private List<Path> exclusionDirectoryList;
 
     /**
-     * Расширения файлов, подлежаще сканированию
+     * Расширения файлов, не подлежаще сканированию
      */
     private List<String> excludesExtensions;
 
