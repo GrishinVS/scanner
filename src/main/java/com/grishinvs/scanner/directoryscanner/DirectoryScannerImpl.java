@@ -29,7 +29,9 @@ public class DirectoryScannerImpl implements DirectoryScanner {
         List<ScanTask> scanTaskList = createScanTasks(configuration);
         try {
             counter = 0;
-            List<Future<List<File>>> futureList = executor.invokeAll(scanTaskList);
+            List<Future<List<File>>> futureList = scanTaskList.stream()
+                    .map(executor::submit)
+                    .collect(Collectors.toList());
             while (futureList.stream().anyMatch(Predicate.not(Future::isDone))) {
                 Thread.sleep(TimeUnit.SECONDS.toMillis(6));
                 showScanProcess();
